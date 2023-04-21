@@ -58,7 +58,7 @@ Then create the user and database:
 ```sql
 create database remixtodos;
 create user 'remix'@localhost identified by 'test';
-grant all privileges on *.* to remix@localhost;
+grant all privileges on remixtodos.* to remix@'%';
 ```
 Then run the migrations:
 ```sh
