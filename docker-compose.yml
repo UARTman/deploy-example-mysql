@@ -1,4 +1,3 @@
-version: '3.9'
 networks:
   database:
 
@@ -9,7 +8,9 @@ services:
   web:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+        restart: true
     ports:
       - "3000:3000"
     networks:
@@ -28,4 +29,7 @@ services:
       database:
         aliases:
           - mysql
-  
+    healthcheck:
+      test: "mysqladmin ping --silent"
+      interval: 1s
+      retries: 120
